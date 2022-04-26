@@ -112,6 +112,36 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: mDefaultPadding),
+                child: Row(
+                  children: [
+                    Expanded(child: Divider()),
+                    SizedBox(width: 5),
+                    Text(
+                      'Finde Nearby Donars',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(width: 5),
+                    Expanded(child: Divider()),
+                  ],
+                ),
+              ),
+              // SizedBox(height: 15),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: mDefaultPadding,
+                  vertical: mDefaultPadding,
+                ),
+                child: Container(
+                  width: sSize.width,
+                  height: sSize.height - sSize.height*0.25,
+                  color: Colors.amber,
+                ),
+              )
             ],
           ),
         ),
