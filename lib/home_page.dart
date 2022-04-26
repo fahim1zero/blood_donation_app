@@ -139,7 +139,7 @@ class _HomePageState extends State<HomePage> {
                 child: Container(
                   width: sSize.width,
                   height: sSize.height - sSize.height*0.25,
-                  color: Colors.amber,
+                  // color: Colors.amber,
                 ),
               )
             ],
