@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+//
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, unused_import, deprecated_member_use
 
 import 'package:blood_donation_app/components.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,27 @@ class _HomePageState extends State<HomePage> {
   late Size sSize = MediaQuery.of(context).size;
 
   final List<String> bloodGroup = <String>[
-    'A+', 'B+', 'O+', 'AB+', 'A-', 'B-', 'O-', 'Ab-',
+    'A+',
+    'B+',
+    'O+',
+    'AB+',
+    'A-',
+    'B-',
+    'O-',
+    'Ab-',
   ];
+  final List<String> allDivition = <String>[
+    'Barishal',
+    'Chattogram',
+    'Dhaka',
+    'Khulna',
+    'Rajshahi',
+    'Rangpur',
+    'Mymensingh',
+    'Sylhet',
+  ];
+
+  final List<FlatButton> bloodBankButton = <FlatButton>[];
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +70,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               SizedBox(height: 5),
                               Text(
-                                'Multajim Bin Kamal Fahim',
+                                'User Name',
                                 maxLines: 2,
                                 style: TextStyle(
                                   fontSize: 22,
@@ -96,7 +116,8 @@ class _HomePageState extends State<HomePage> {
                     right: 0,
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: mDefaultPadding),
-                      padding: EdgeInsets.symmetric(horizontal: mDefaultPadding),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: mDefaultPadding),
                       height: 55,
                       decoration: BoxDecoration(
                         color: Colors.white,
@@ -122,7 +143,59 @@ class _HomePageState extends State<HomePage> {
                   Expanded(child: Divider()),
                   SizedBox(width: 5),
                   Text(
-                    'Finde Nearby Donars',
+                    'Find Nearby Blood Bank',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                  Expanded(child: Divider()),
+                ],
+              ),
+            ),
+            SizedBox(height: 15),
+            Container(
+              height: 45,
+              width: sSize.width,
+              child: ListView.builder(
+                itemCount: allDivition.length,
+                scrollDirection: Axis.horizontal,
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Container(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 8,
+                        horizontal: 20,
+                      ),
+                      child: Center(
+                        child: Text(
+                          allDivition[index],
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            SizedBox(height: 20),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: mDefaultPadding),
+              child: Row(
+                children: [
+                  // Expanded(child: Divider()),
+                  // SizedBox(width: 5),
+                  Text(
+                    'Request Blood',
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -148,23 +221,28 @@ class _HomePageState extends State<HomePage> {
                   itemCount: bloodGroup.length,
                   // scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      // height: 100, width: 100,
-                      decoration: BoxDecoration(
-                        color: lPrimaryColor,
-                        borderRadius: BorderRadius.circular(100),
-                      ),
-                      child: Center(
-                        child: Text(
-                          bloodGroup[index],
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600,
+                    return GestureDetector(
+                      onTap: () {
+
+                      },
+                      child: Container(
+                        // height: 100, width: 100,
+                        decoration: BoxDecoration(
+                          color: lPrimaryColor,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: Center(
+                          child: Text(
+                            bloodGroup[index],
+                            style: TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
                     );
-                  }
+                  },
                 ),
               ),
             ),
@@ -190,3 +268,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+class SylhetBloodBank {}
