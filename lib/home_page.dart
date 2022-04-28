@@ -2,6 +2,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, unused_import, deprecated_member_use
 
 import 'package:blood_donation_app/components.dart';
+import 'package:blood_donation_app/requestForm.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,15 +15,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   late Size sSize = MediaQuery.of(context).size;
 
-  final List<String> bloodGroup = <String>[
-    'A+',
-    'B+',
-    'O+',
-    'AB+',
-    'A-',
-    'B-',
-    'O-',
-    'Ab-',
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  final List<String> bloodType = <String>[
+    'Request Blood',
+    'Donate Blood',
   ];
   final List<String> allDivition = <String>[
     'Barishal',
@@ -35,219 +31,220 @@ class _HomePageState extends State<HomePage> {
     'Sylhet',
   ];
 
-  final List<FlatButton> bloodBankButton = <FlatButton>[];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: buildAppBar(),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(children: [
-            Container(
-              height: sSize.height * 0.25,
-              child: Stack(
-                children: [
-                  Container(
-                    height: sSize.height * 0.25 - 25,
-                    width: sSize.width,
+      body: homeBody(),
+    );
+  }
+
+  SafeArea homeBody() {
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(children: [
+          Container(
+            height: sSize.height * 0.25,
+            child: Stack(
+              children: [
+                Container(
+                  height: sSize.height * 0.25 - 25,
+                  width: sSize.width,
+                  decoration: BoxDecoration(
+                    color: lPrimaryColor,
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(50),
+                      bottomRight: Radius.circular(50),
+                    ),
+                  ),
+                  child: Container(
+                    padding: EdgeInsets.only(bottom: 40),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: 5),
+                            Text(
+                              'User Name',
+                              maxLines: 2,
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Text(
+                              'Last Donate: ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            Text(
+                              'Total Donate: ',
+                              style: TextStyle(
+                                fontSize: 18,
+                                color: Colors.black87,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              height: 100,
+                              width: 100,
+                              color: Colors.black,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    height: 55,
                     decoration: BoxDecoration(
-                      color: lPrimaryColor,
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(50),
-                        bottomRight: Radius.circular(50),
-                      ),
-                    ),
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 40),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 5),
-                              Text(
-                                'User Name',
-                                maxLines: 2,
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                'Last Donate: ',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              Text(
-                                'Total Donate: ',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  color: Colors.black87,
-                                ),
-                              ),
-                              SizedBox(height: 5),
-                            ],
-                          ),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                height: 100,
-                                width: 100,
-                                color: Colors.black,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          offset: Offset(0, 8),
+                          blurRadius: 20,
+                          color: lPrimaryColor.withOpacity(0.25),
+                        ),
+                      ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
+                )
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+            child: Row(
+              children: [
+                Expanded(child: Divider()),
+                SizedBox(width: 5),
+                Text(
+                  'Find Nearby Blood Bank',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                SizedBox(width: 5),
+                Expanded(child: Divider()),
+              ],
+            ),
+          ),
+          SizedBox(height: 15),
+          Container(
+            height: 45,
+            width: sSize.width,
+            child: ListView.builder(
+              itemCount: allDivition.length,
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 8,
+                      horizontal: 20,
+                    ),
+                    child: Center(
+                      child: Text(
+                        allDivition[index],
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          // SizedBox(height: 20),
+          // Container(
+          //   padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          //   child: Row(
+          //     children: [
+          //       // Expanded(child: Divider()),
+          //       // SizedBox(width: 5),
+          //       Text(
+          //         'Request Blood',
+          //         style: TextStyle(
+          //           fontSize: 20,
+          //         ),
+          //       ),
+          //       SizedBox(width: 5),
+          //       Expanded(child: Divider()),
+          //     ],
+          //   ),
+          // ),
+          Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: kDefaultPadding,
+              vertical: kDefaultPadding,
+            ),
+            child: Container(
+              height: sSize.width / 2 - 22,
+              color: Colors.amber,
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisSpacing: 15,
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 15,
+                ),
+                itemCount: bloodType.length,
+                // scrollDirection: Axis.horizontal,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {},
                     child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: mDefaultPadding),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: mDefaultPadding),
-                      height: 55,
+                      // height: 100, width: 100,
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 8),
-                            blurRadius: 20,
-                            color: lPrimaryColor.withOpacity(0.25),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: mDefaultPadding),
-              child: Row(
-                children: [
-                  Expanded(child: Divider()),
-                  SizedBox(width: 5),
-                  Text(
-                    'Find Nearby Blood Bank',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Expanded(child: Divider()),
-                ],
-              ),
-            ),
-            SizedBox(height: 15),
-            Container(
-              height: 45,
-              width: sSize.width,
-              child: ListView.builder(
-                itemCount: allDivition.length,
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 8,
-                        horizontal: 20,
+                        color: lPrimaryColor,
+                        borderRadius: BorderRadius.circular(200),
                       ),
                       child: Center(
                         child: Text(
-                          allDivition[index],
+                          bloodType[index],
                           style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(30),
                       ),
                     ),
                   );
                 },
               ),
             ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: mDefaultPadding),
-              child: Row(
-                children: [
-                  // Expanded(child: Divider()),
-                  // SizedBox(width: 5),
-                  Text(
-                    'Request Blood',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  Expanded(child: Divider()),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: mDefaultPadding,
-                vertical: mDefaultPadding,
-              ),
-              child: Container(
-                height: sSize.height * 0.5,
-                child: GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisSpacing: 10,
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 10,
-                  ),
-                  itemCount: bloodGroup.length,
-                  // scrollDirection: Axis.horizontal,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      onTap: () {
-
-                      },
-                      child: Container(
-                        // height: 100, width: 100,
-                        decoration: BoxDecoration(
-                          color: lPrimaryColor,
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        child: Center(
-                          child: Text(
-                            bloodGroup[index],
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ]),
-        ),
+          ),
+        ]),
       ),
     );
   }
@@ -268,5 +265,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-class SylhetBloodBank {}
