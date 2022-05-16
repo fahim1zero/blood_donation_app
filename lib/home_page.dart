@@ -1,8 +1,9 @@
 //
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, unused_import, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, unrelated_type_equality_checks, unused_import, deprecated_member_use, unused_field, prefer_final_fields, non_constant_identifier_names
 
 import 'package:blood_donation_app/components.dart';
 import 'package:blood_donation_app/requestForm.dart';
+import 'package:blood_donation_app/selfDonationForm.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,6 +15,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Size sSize = MediaQuery.of(context).size;
+
+  final List<PageRoute> _pageRoute = <PageRoute>[
+    MaterialPageRoute(builder: (context) => BloodRequestForm()),
+    MaterialPageRoute(builder: (context) => SelfDonateForm()),
+  ];
+
+  int _donationCounter = 1;
+  int _lastDonate = 0;
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
   final List<String> bloodType = <String>[
@@ -124,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                       boxShadow: [
                         BoxShadow(
                           offset: Offset(0, 8),
-                          blurRadius: 20,
+                          blurRadius: 5,
                           color: lPrimaryColor.withOpacity(0.25),
                         ),
                       ],
@@ -145,6 +154,7 @@ class _HomePageState extends State<HomePage> {
                   'Find Nearby Blood Bank',
                   style: TextStyle(
                     fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
                 SizedBox(width: 5),
@@ -204,6 +214,7 @@ class _HomePageState extends State<HomePage> {
           //     ],
           //   ),
           // ),
+          SizedBox(height: 15),
           Padding(
             padding: EdgeInsets.symmetric(
               horizontal: kDefaultPadding,
@@ -211,7 +222,7 @@ class _HomePageState extends State<HomePage> {
             ),
             child: Container(
               height: sSize.width / 2 - 22,
-              color: Colors.amber,
+              // color: Colors.amber,
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisSpacing: 15,
@@ -222,19 +233,31 @@ class _HomePageState extends State<HomePage> {
                 // scrollDirection: Axis.horizontal,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        _pageRoute[index],
+                      );
+                    },
                     child: Container(
                       // height: 100, width: 100,
                       decoration: BoxDecoration(
                         color: lPrimaryColor,
-                        borderRadius: BorderRadius.circular(200),
+                        shape: BoxShape.circle,
+                        border: Border(
+                          bottom: BorderSide(width: 5),
+                          left: BorderSide(width: 5),
+                          right: BorderSide(width: 5),
+                          top: BorderSide(width: 5),
+                        ),
                       ),
                       child: Center(
                         child: Text(
                           bloodType[index],
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 22,
                             fontWeight: FontWeight.w600,
+                            // color: Colors.white,
                           ),
                         ),
                       ),

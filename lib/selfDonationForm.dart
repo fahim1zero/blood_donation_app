@@ -32,7 +32,7 @@ class _SelfDonateFormState extends State<SelfDonateForm> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Blood request form'),
+        title: Text('Self Donaation form'),
       ),
       body: SafeArea(
         child: Container(
@@ -63,8 +63,7 @@ class _SelfDonateFormState extends State<SelfDonateForm> {
             validator: (value) {
               if (value!.length >= 4) {
                 return null;
-              }
-              else {
+              } else {
                 return null;
               }
             },
